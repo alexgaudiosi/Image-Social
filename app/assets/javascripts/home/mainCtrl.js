@@ -3,7 +3,10 @@ angular.module('wishingWall')
 	.controller('MainCtrl', [
 		'$scope',
 		'posts',
-		function($scope, posts){
+		'Upload',
+		'$timeout',
+
+		function($scope, posts, Upload, $timeout){
 
 			$scope.posts = posts.posts;
 
@@ -29,4 +32,22 @@ angular.module('wishingWall')
 				post.upvotes += 1;
 			}
 
+	
+			$scope.upload = function (dataUrl) {
+		        Upload.upload({
+		            url: '/assets/images/',
+		            data: {
+		                file: Upload.dataUrltoBlob(dataUrl)
+		            },
+		        }).then(function (response) {
+		            $timeout(function () {
+		                $scope.result = response.data;
+		            });
+		        }, function (response) {
+		            if (response.status > 0) $scope.errorMsg = response.status 
+		                + ': ' + response.data;
+		        }, function (evt) {
+		            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+		        });
+			    }
 	}])

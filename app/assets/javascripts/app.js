@@ -1,4 +1,4 @@
-angular.module('wishingWall', ['ui.router', 'templates'])
+angular.module('wishingWall', ['ui.router', 'templates','ngFileUpload', 'ngImgCrop'])
 	
 	.config([
 		'$stateProvider',
@@ -17,6 +17,7 @@ angular.module('wishingWall', ['ui.router', 'templates'])
 				});
 			$urlRouterProvider.otherwise('home');
 	}])
+
 
 
 
